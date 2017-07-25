@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Camera API</title>
+<link rel="stylesheet" href="css/work_request.css" type="text/css" media="screen">
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+  <h1>Work Request</h1>
+  <section class="main-content">
+    <form id="form" action="http://ly.iptime.org/dd/php/test.php" method="post" enctype="multipart/form-data">
+      <div id="Matterinfo">
+        <label class="label_separate" for="separate">구역</label>
+        <input type="text" id="separate" name="separate" /><br>
+        <label class="label_separate" for="executor">실행자</label>
+        <input type="text" id="executor" name="executor" onclick="memberSelect();"/>
+        <input type="button" value="찾기" onclick="memberSelect();" /><br>
+        <label class="label_separate" for="DM">문제점</label>
+        <input type="text" id="DM" name="discoveredMatter" />
+      </div>
+      
+      <div id="image_form">
+      <label class="label_separate" for="getfile">사진추가</label>
+      <input type="file"   id="getfile" accept="image/*" capture="camera" name="images"/>
+      <input type="button" id="imagefin" onclick="" value="추가완료"/>
+      <textarea id="imgs" style="width:300px; height:50px;" disabled="false"></textarea>
+       <img id="thumbnail" src="" width="300px" alt="썸네일영역"><br>
+      </div>
+      
+      <div id="indication">
+        <label class="label_separate" for="indication1">지시사항1</label>
+		<textarea class="indication" id="indication1" name="indication1"></textarea>
+        <input type="button" value="추가" onclick="addInput();" />
+        <input type="button" value="삭제" onclick="deleteInput();"/>
+        <div id="parah"></div>
+      </div>
+      
+      <div class="button">
+        <center><input type="button" value="등록" onclick="sendInfo();"></center>
+      </div>
+    </form>
+  </section>
+  <p class="footer">copyright is Aegis</p>
+</div>
+<script type="application/javascript" src="js/base1.js"></script>
+</body>
+</html>

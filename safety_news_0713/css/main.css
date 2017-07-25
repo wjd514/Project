@@ -1,0 +1,157 @@
+@charset "utf-8";
+/* CSS Document */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, ol, ul, li {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+:focus {
+	outline: 0;
+}
+a {
+	text-decoration: none;
+}
+@font-face {
+	font-family: 'BebasNeueRegular';
+	font-weight: normal;
+	font-style: normal;
+}
+body {
+	background-image: url(../images/bckgtexture.jpg);
+	background-color: #f6f6f6;
+	font-family: BebasNeueRegular;
+	padding-top: 40px;
+	color: #393939;
+}
+#wrap {
+	width: 1020px;
+	margin: 0 auto;
+}
+h1 {
+	font-size: 3em;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	text-shadow: 0 1px 0 #fff;
+}
+.news {
+	position: relative;
+	display: inline-block;
+	margin: 10px;
+	padding: 10px;
+	background: #fff;
+	-webkit-box-shadow: 0 0 5px rgba(0,0,0,.35);
+	-moz-boz-shadow: 0 0 5px rgba(0,0,0,.35);
+	box-shadow: 0 0 5px rgba(0,0,0,.35);
+	width: 300px;
+	float: left;
+}
+li div {
+	position: absolute;
+	width: 280px;
+	background: rgba(0,0,0,.45);
+	overflow: hidden;
+	bottom: 10px;
+	left: 10px;
+	padding: 0 10px;
+	-webkit-transition: height 1s;
+	-moz-transition: height 1s;
+	-o-transition: height 1s;
+	-ms-transition: height 1s;
+	transition: height 1s;
+	color: #fff;
+	line-height: 50px;
+	font-size: 1.2em;
+}
+li:hover div {
+	height: 50px;
+}
+canvas {
+	opacity: 1;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	-webkit-transition: opacity 1s .2s;
+	-moz-transition: opacity 1s .2s;
+	-o-transition: opacity 1s .2s;
+	-ms-transition: opacity 1s .2s;
+	transition: opacity 1s .2s;
+}
+li:hover canvas {
+	opacity: 0;
+}
+p {
+	clear: left;
+	float: right;
+	margin-top: 10px;
+	margin-right: 20px;
+}
+p a {
+	color: #909090;
+	-webkit-transition: color .6s;
+	-moz-transition: color .6s;
+	-o-transition: color .6s;
+	-ms-transition: color .6s;
+	transition: color .6s;
+}
+p a:hover {
+	color: #eb5cf4;
+}
+.news_thumimg {
+	width: 300px;
+	height: 300px;
+}
+.date_btn {
+	height: 22px;
+	vertical-align: middle;
+}
+.indigator{
+	float: left;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+button {
+	position: relative;
+	bottom: 3px;
+}
+#paging {
+	float: left;
+	width: 100%;
+	padding-right: 20px;
+	padding-left: 25px;
+	margin: 0 auto;
+	text-align: center;
+}
+#paging ul {
+	list-style: none;
+}
+#paging ul li {
+	color: #808080;
+	padding-bottom: 3px;
+	font-size: 1.2em;
+	font-family: Arial, Helvetica, sans-serif;
+	display: inline-block;
+	padding-right: 10px;
+}
+.paging li:hover a {
+	color: #ddd;
+}
+#Date {
+	text-align: center;
+	margin: 0 auto;
+}
+#setDate {
+	text-align: center;
+	font-size: 1.2em;
+}

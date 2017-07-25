@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	width: 400px;
+	height: 360px;
+}
+#wrapper {
+	width: 400px;
+	margin: 0 auto;
+}
+#subject {
+	display: block;
+	margin: 0px;
+}
+#subject li {
+	display: inline-block;
+	width: 60px;
+	float: left;
+	text-align: center;
+	margin: 0px;
+	padding: 5px;
+	border: thin solid #000000;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.memberInfo {
+	width: 300px;
+	
+}
+.memberInfo ol {
+	
+	display: block;
+}
+.memberInfo li {
+	width: 60px;
+	padding: 5px;
+	text-align: center;
+	list-style-image: none;
+	border: 1px solid #000000;
+	display: inline-block;
+	float: left;
+}

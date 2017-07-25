@@ -1,0 +1,36 @@
+
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Board :: safety_news </title>
+	<style type="text/css"></style>
+	<!--Main CSS파일 추가-->
+	<link href="css/main.css" rel="stylesheet" type="text/css" media="screen">
+	<!--jQuery UI CSS파일 달력에 사용-->
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+	<!--jQuery 기본 js파일 달력에 사용-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+	<!--jQuery UI 라이브러리 js파일 달력에 사용-->
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+	<!--주석풀면 달력안됨-->
+	<!--<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>-->
+	<!---->
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<!--자바스크립트파일 추가-->
+	<script type="application/javascript" src="js/news.js"></script>
+	<script type="application/javascript" src="js/func.js"></script>
+</head>
+<body>
+	
+	<div id="wrap">
+		<h1>안전일보</h1>
+		<div id="Date">
+			<button><img src="images/left.png" class="date_btn" id="prev"></button>
+			<input type="text" id="setDate">
+			<button><img src="images/right.png" class="date_btn" id="next"></button>
+		</div>
+		<div id="main"></div>
+	</div>
+	<div id="paging"></div>
+</body>
+</html>
