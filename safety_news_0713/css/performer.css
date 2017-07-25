@@ -1,0 +1,277 @@
+/* General font styles */
+html {
+	font: 100%/1.3 Verdana, Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+
+body {
+	font: 70%/1.3 Verdana, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+	font: bold 2em Arial, sans-serif;
+}
+                       
+h2 {                     
+	font: bold 1.5em Arial, sans-serif;
+}
+                       
+h3 {                     
+	font: bold 1.25em Arial, sans-serif;
+}
+                       
+h4 {                     
+	font: bold 1.1em Arial, sans-serif;
+}
+
+/* Default resetting */
+html, body, form, fieldset, legend, dt, dd {
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, dl {
+	margin: 0 0 1em;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 0.5em;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+pre {
+	font-size: 1.5em;
+}
+
+li, dd {
+	margin-left: 1.5em;
+}
+
+img {
+    border: none;
+	vertical-align: middle;
+}
+
+/* Basic element styles */
+a {
+	color: #000;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+html {
+	color: #000;
+	min-height: 100%;	
+}
+
+body {
+    min-height: 100%;
+    background-image: -moz-linear-gradient(top, #ccc, #fff);
+    background-image: -webkit-linear-gradient(top, #ccc, #fff);
+    padding-top: 20px;
+}
+
+
+body {
+	margin-bottom: 30px;
+}
+
+ul {
+    margin: 10px 0;
+}
+
+
+/* Structure */
+.container {
+	min-height: 600px;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-top: none;
+	margin-left: 20%;
+	margin-right: 20%;
+	padding: 20px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-moz-box-shadow: 1px 1px 10px #000;
+	-webkit-box-shadow: 1px 1px 5px #000;
+	box-shadow: 1px 1px 10px #000;
+	text-align: left;
+	color: #5F5F5F;
+}
+table {
+	width: 100%;
+}
+table tr #subject {
+	border-top: medium solid #000000;
+	border-bottom: medium solid #000000;
+	background-color: #E4E1E1;
+	text-align: center;
+	font-size: 1.4em;
+}
+table tr #info {
+	border-bottom: thin solid #000000;
+	width: 560px;
+	text-align: left;
+}
+#image{
+	width: 100%;
+	margin: 0 auto;
+}
+#MatterPhoto {
+	width: 100%;
+	height: auto;
+	display: block;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#PerformPhoto {
+	width: 100%;
+	height: auto;
+	display: block;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#discovered {
+}
+#discovered_table {
+	width: 100%;
+	padding: 0px;
+	border: thin solid #000000;
+}
+#discovered_table tr {
+	margin: 0;
+	padding: 0;
+}
+
+#discovered_subject {
+	margin: 0;
+	padding: 5px;
+	border-right: thin solid #000000;
+	font-size: 1.4em;
+	font-weight: bold;
+	background-color: #C4C4C4;
+	width: 50px;
+}
+.indication{
+	width: 100%;
+	border: thin solid #000000;
+	margin-top: 20px;
+	min-height: 300px;
+	clear: left;
+}
+
+
+
+
+#content {
+	margin-top: 40px;
+	
+}
+.subjects {
+	width: 100%;
+	border-bottom: thin solid #000000;
+	height: 20px;
+	text-align: center;
+	font-size: 1.4em;
+	font-style: normal;
+	font-weight: bold;
+}
+.input_form {
+
+}
+.add {
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	display: inline-block;
+	width: 6%;
+
+}
+.add_contents {
+	display: inline-block;
+	margin-top: 3px;
+	margin-bottom: 5px;
+	width: 70%;
+	margin-right: 5px;
+}
+
+.submit {
+	display: inline-block;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 14%;
+}
+
+
+
+.orderer {
+	width: 60%;
+	min-height: 50px;
+	margin: 10px;
+	border-radius: 10px;
+	background-color: #AAE3E8;
+	-webkit-box-shadow: 0.1px 0.1px 0px 0.5px;
+	box-shadow: 0.1px 0.1px 0px 0.5px;
+	float: left;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	font-size: 1.2em;
+}
+.performer {
+	width: 60%;
+	min-height: 50px;
+	margin: 10px;
+	border-radius: 10px;
+	background-color: #AAE3E8;
+	-webkit-box-shadow: 0.1px 0.1px 0px 0.5px;
+	box-shadow: 0.1px 0.1px 0px 0.5px;
+	float: right;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	font-size: 1.2em;
+}
+#discovered_content {
+	text-align: center;
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 320px) {
+    #container {
+        width: 280px;
+        padding: 10px;
+    }
+
+}
+
+
+.footer {
+	border-top: 1px solid #000;
+	margin-top: 30px;
+	padding-top: 10px;
+	text-align: right;
+	display: block;
+	clear: left;
+}
