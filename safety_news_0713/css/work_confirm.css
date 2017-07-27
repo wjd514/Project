@@ -161,15 +161,18 @@ table tr #info {
 	background-color: #C4C4C4;
 	width: 50px;
 }
-.indication{
+.indication {
 	width: 100%;
 	border: thin solid #000000;
 	margin-top: 20px;
-	min-height: 300px;
 	clear: left;
+	height: auto;
+	display: block;
 }
 
-
+#complete_docu{
+	height: 100px;
+}
 
 
 #content {
@@ -216,7 +219,6 @@ table tr #info {
 
 .orderer {
 	width: 60%;
-	min-height: 50px;
 	margin: 10px;
 	border-radius: 10px;
 	background-color: #AAE3E8;
@@ -228,10 +230,10 @@ table tr #info {
 	padding-bottom: 5px;
 	padding-left: 10px;
 	font-size: 1.2em;
+	display: block;
 }
 .performer {
 	width: 60%;
-	min-height: 50px;
 	margin: 10px;
 	border-radius: 10px;
 	background-color: #AAE3E8;
@@ -243,6 +245,7 @@ table tr #info {
 	padding-bottom: 5px;
 	padding-left: 10px;
 	font-size: 1.2em;
+	display: block;
 }
 #discovered_content {
 	text-align: center;
@@ -253,6 +256,12 @@ table tr #info {
 	margin-top: 20px;
 	margin-bottom: 20px;
 	display: none;
+}
+.send_msg {
+	vertical-align: text-top;
+}
+#getfile {
+	width: 163px;
 }
 
 

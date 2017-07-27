@@ -39,6 +39,8 @@ else{
 }
 var check_indication_num = 0; //지시사항 갯수 저장
 var check_requestCount = 0; //마지막 requestCount값 저장
+var discoveredMatter = "";
+var conduct = "";
 var memberId='asdf';
 //var bNo='1500910178989';
 $.ajax({
@@ -50,42 +52,48 @@ $.ajax({
 		//alert(data[1].workLocation);
 		$('#subject').html(data[1].workLocation);
 		$('#info').html(data[0].name+"<br>"+data[1].detectedTime);
-		
-		
 		$('#discovered_content').html(data[2].discoveredMatters);
-		
+		discoveredMatter = data[2].discoveredMatters;
+		conduct = data[1].conduct;
 		var contents = "";
+		var count = 1;
 		if(data[1].progressState < 3){
 			//var check_indication_num = 0; //지시사항 갯수 저장
 			//var check_requestCount = 0; //마지막 requestCount값 저장
 			var input_form_content = "";
+			input_form_content +=  '<center><label class="label_form" for="getfile">사진추가 :  </label>';
+      		input_form_content +=  '<input type="file"  multiple id="getfile" accept="image/*" name="images"/></input></center>';
 			for(var i=2; i<data.length; i++){
 				if(check_indication_num != data[i].indicationNumbers){
 					if(contents != ""){
+						alert($(".performer").height());
 						contents += '</div>';
 						contents += '<div class="textArea">';
-						contents += '<center><textarea class="add_contents" id="add_contents'+(i-1)+'"></textarea>';
-						contents += '<input type="button" class="submit" onclick="input_text('+(i-1)+');" value="입력"></input></center>';
+						contents += '<center><textarea class="add_contents" id="add_contents'+(count-1)+'"></textarea>';
+						contents += '<input type="button" class="submit" onclick="input_text('+(count-1)+');" value="입력"></input></center>';
 						contents += '</div>';
 					}
-					contents += '<div class="indication" id="indication"' + data[i].indicationNumbers + '>';
+					contents += '<div class="indication" id="indication' + data[i].indicationNumbers + '">';
 					contents += '<div class="subjects">지시사항' + data[i].indicationNumbers + '</div>';
 					
-					input_form_content += '<center><textarea id="send_msg'+data[i].indicationNumbers+'" disabled="true"></textarea></center>';
+					input_form_content += '<center><label class="label_form" for="send_msg">입력값'+count+' :  </label>';
+					input_form_content += '<textarea name="indications" class="send_msg" id="send_msg'+data[i].indicationNumbers+'" disabled="true"></textarea></center>';
 					check_indication_num = data[i].indicationNumbers;
-					if(check_requestCount < data[i].requestCount){
-						check_requestCount = data[i].requestCount;
-					}					
+					count++;
 				}
 				contents += '<div class="orderer">'+ data[i].requestContents + '</div>';
 				if(data[i].performContents != null){
 					contents += '<div class="performer">'+ data[i].performContents + '</div>';
 				}
+				if(check_requestCount < data[i].requestCount){
+					check_requestCount = data[i].requestCount;
+
+				}
 			}
 			contents += '</div>';
 			contents += '<div class="textArea">';
-			contents += '<center><textarea class="add_contents" id="add_contents'+(i-1)+'"></textarea>';
-			contents += '<input type="button" class="submit" onclick="input_text('+(i-1)+');" value="입력"></input></center>';
+			contents += '<center><textarea class="add_contents" id="add_contents'+(count-1)+'"></textarea>';
+			contents += '<input type="button" class="submit" onclick="input_text('+(count-1)+');" value="입력"></input></center>';
 			contents += '</div>';
 			if(data[1].conduct == "orderer"){
 				var complete = '<center><input type="button" id="complete" value="완료" onClick="complete_doc();"></input></center>';
@@ -93,12 +101,12 @@ $.ajax({
 				
 				check_requestCount++;
 			}
-			input_form_content += '<center><input type="button" id="submit" value="전송" onClick="send_form();">';
-			input_form_content += '<input type="button" id="cancel" value="취소" onClick="cancel();"></center>';
-			
+			input_form_content += '<center><input type="button" id="submit" value="전송" onClick="send_form();"></input>';
+			input_form_content += '<input type="button" id="cancel" value="취소" onClick="cancels();"></input></center>';
 			
 			$("#indications").html(contents);
 			$("#input_form").html(input_form_content);
+			alert($("#indication1").height());
 		}
 	},
 	
@@ -115,24 +123,67 @@ function input_text(n){
 			jQuery("#input_form").show();
 		}
 		var text = $("#add_contents"+n).val();
-		$("#send_msg"+(n-1)).val(text);
+		$("#send_msg"+n).val(text);
 	}else{
 		//alert("내용을 입력해 주세요");
-		alert(check_requestCount);
+		alert(n);
 	}
 }
 
 function complete_doc(){
-	
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: 'http://ly.iptime.org/safety_news_0713/php/finishDoc.php',
+		data: {bNo:bNo},
+		success: function (data) {
+		},
+
+		error: function (request,status,error) {
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
 }
 function send_form(){
+	var file = $('#getfile').val();
 	
+	var formdata = new FormData($('#form').val()[0]);
+	formdata.append("images[]", file.files);
+	formdata.append("serialNumber", bNo);
+	formdata.append("conduct", conduct);
+	formdata.append("discoveredMatter", discoveredMatter);
+	formdata.append("indicationNum", check_indication_num);
+	formdata.append("requestCount", check_requestCount);
+	for(var i=0; i<check_indication_num; i++){
+		formdata.append("reply[]", $("#send_msg"+(i+1)).val());
+	}
+	
+	//formdata.submit();
+	$.ajax({
+		type: "POST",
+		processData: false,
+		contentType: false,
+		url: 'http://ly.iptime.org/safety_news_0713/php/insertPerform.php',
+		data: formdata,
+		success: function (result) {
+			alert("작업지시가 등록되었습니다.");
+			//alert(result[0]['conduct']);
+		},
+		error: function (request,status,error) {
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
 }
-function cancel(){
+function cancels(){
+	form.reset();
+	jQuery("#input_form").hide();
+	/*
 	for(var i=0; i<check_indication_num; i++){
 		$("#send_msg"+(i+1)).val('');
 	}
-	jQuery("#input_form").hide();
+	*/
+	
+	
 }
 
 
