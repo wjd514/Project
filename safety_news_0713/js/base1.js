@@ -92,7 +92,7 @@ function deleteInput() {
 //실행자 찾기 결과값 리턴
 var executorInfo ="";
 function memberSelect() {
-	window.open("member.html","_blank","width=400,height=360,resizable=no,directories=no,menubar=no,toolbar=no,location=no,status=no,scrollbars=yes");
+	window.open("http://ly.iptime.org/safety_news_0713/member.html","_blank","width=400,height=360,resizable=no,directories=no,menubar=no,toolbar=no,location=no,status=no,scrollbars=yes");
 }
 function setChildValue(name){
 	executorInfo = name;

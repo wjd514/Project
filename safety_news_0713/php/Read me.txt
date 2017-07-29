@@ -1,0 +1,8 @@
+1. allpost.php => getPost.php의 이전버전 삭제 예정
+2. finishDoc.php => 문서 완료시 (serialNumber but! 후에 보안에 대해서 생각해봐야함)
+3. getDocInfo.php => 원하는 게시글의 모든 정보 반환 (인자 값 serialNumber, 회원 ID
+4. getDocInfo2.php => getDocInfo.php의 이전 버전 후에 지시사항 완료 시 쓸 예제
+5. getPost.php => 자신이 쓴 글의 원하는 날짜에 쓴 자신의 게시글 반환 (인자 값 회원ID 날짜 page, 한 page에 보여줄 게시글 수) 
+6. insertPerform.php => orderer의 재지시, excutor의 수행사항 작성 (Progress 테이블의 키값, 재지시/수행사항 내용)
+7. insertPost.php => 지시사항 글 삽입 (인자값 글 정보)
+8. memberlist.php => 자신 제외 회원 정보 반환 (인자 값 회원ID)
