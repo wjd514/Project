@@ -33,11 +33,13 @@ while($row_HeaderInfo = mysqli_fetch_array($result_HeaderInfo)){
 	array_push($result, array('conduct'=>$row_HeaderInfo[2],'workLocation'=>$row_HeaderInfo[3],'detectedTime'=>$row_HeaderInfo[5],'finisedTime'=>$row_HeaderInfo[6],'progressState'=>$row_HeaderInfo[7]));
 }
 
-
-if($row_HeaderInfo['progressState'] < 3){
+if($result[1]['progressState'] == 0 && strcmp($result[1]['conduct'],"executor") === 0){
+	$sql_update = "update Works_List set progressState= 1 where serialNumber='" .$bNo. "'";
+	$result_update = mysqli_query($db,$sql_update);
+}
+if($result[1]['progressState'] < 3){
 	$sql_DocInfo = 'select * from Progress where serialNumber="' . $bNo .'"';
 	$result_DocInfo = mysqli_query($db,$sql_DocInfo);
-	//echo "dsdsd";
 	while($row_DocInfo = mysqli_fetch_array($result_DocInfo)){
 		array_push($result, array('discoveredNumbers'=>$row_DocInfo[1],'discoveredMatters'=>$row_DocInfo[2],'indicationNumbers'=>$row_DocInfo[3],'requestContents'=>$row_DocInfo[4],'requestCount'=>$row_DocInfo[5],'performContents'=>$row_DocInfo[6],'performCount'=>$row_DocInfo[7]));
 	}

@@ -13,6 +13,7 @@
 	
 	$serialNumber = $_POST['bNo'];
 	$discoveredNumbers = 1;
+	$finishedTime = Date("Y-m-d H:i:s");
 	
 	//requestCount가 가장 마지막인것을 가져온다
 	$sql_desc  = 'SELECT * FROM `Progress` WHERE serialNumber=' .$serialNumber. ' and discoveredNumbers=' .$discoveredNumbers. ' ORDER BY requestCount desc';
@@ -68,7 +69,7 @@
 		$sql_delete = "delete from Progress where serialNumber='" .$serialNumber. "'";
 		$result_delete = mysqli_query($db,$sql_delete);
 		
-		$sql_update = "update Works_List set progressState= 3 where serialNumber='" .$serialNumber. "'";
+		$sql_update = "update Works_List set progressState= 3, finishedTime='" .$finishedTime. "' where serialNumber='" .$serialNumber. "'";
 		$result_update = mysqli_query($db,$sql_update);
 	}
 	

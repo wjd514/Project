@@ -31,14 +31,14 @@
 			$query = "insert into Progress(`serialNumber`, `discoveredNumbers`,`discoveredMatters`,`indicationNumbers`,`requestContents`,`requestCount`) values (".$data_stream_Progress[$key].")";
 			
 			$sql_update = 'update Works_List set progressState= 1 where serialNumber="' .$serialNumber. '"';
-			echo strcmp($conduct,"orderer");
+			//echo strcmp($conduct,"orderer");
 		
 		}else{
 			$query = "update Progress set performContents='" .$value . "', performCount= 1 where serialNumber='" .$serialNumber. "' and discoveredNumbers= '" .$discoveredNumbers. "' and indicationNumbers= '" .($key+1). "' and requestCount= '" .$requestCount. "'";
 			$sql_update = 'update Works_List set progressState= 2 where serialNumber="' .$serialNumber. '"';
 		}
 		$result_Progress[$key] = mysqli_query($db, $query);
-		echo $query;
+		//echo $query;
 		
 		$i++;
 	}
@@ -95,7 +95,7 @@
 	}
 	
 	$result = array();
-	array_push($result,array('conduct' => $result_update ));
+	//array_push($result,array('conduct' => $result_update ));
 	//array_push($result,array('indications'=>$indications));
 	echo json_encode($result);
 ?>
