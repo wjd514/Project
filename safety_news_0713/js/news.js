@@ -192,7 +192,13 @@ $.ajax({
 				news += '<li class="news"><a href="./work_confirm.html?bno=';
 				news += data[i]['serialNumber'];
 				news +='"><img src="http://ly.iptime.org/photo/Aegis_1483421009387.jpg" class="news_thumimg"></a>';
-				news += '<img src="images/red.png" class="indigator">';
+				if(data[i]['progressState'] == 0){
+					news += '<img src="images/red.png" class="indigator">';
+				}else if(data[i]['progressState'] == 3){
+					news += '<img src="images/green.png" class="indigator">';
+				}else{
+					news += '<img src="images/yellow.png" class="indigator">';
+				}
 				news += '<br><br>구역: ';
 				news += data[i]['workLocation'];
 				news += '<br>';

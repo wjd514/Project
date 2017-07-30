@@ -135,8 +135,10 @@ function sendInfo(){
 	
 	$("form").each(function(){
 		this.reset();
-		document.getElementById('thumbnail').style.display = 'block';
-		document.getElementById('imgs').style.display = 'block';
+		jQuery("#thumbnail").hide();
+		jQuery("#imgs").hide();
+		//document.getElementById('thumbnail').style.display = 'block';
+		//document.getElementById('imgs').style.display = 'block';
 		while(arrInput.length > 2){
 			deleteInput();
 		}

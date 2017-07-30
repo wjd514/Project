@@ -57,7 +57,7 @@ $.ajax({
 		conduct = data[1].conduct;
 		var contents = "";
 		var count = 1;
-		if(data[1].progressState < 3){
+		if(data[1].progressState < 3){	// 진행사항이 완료가 아닌경우
 			//var check_indication_num = 0; //지시사항 갯수 저장
 			//var check_requestCount = 0; //마지막 requestCount값 저장
 			var input_form_content = "";
@@ -66,7 +66,6 @@ $.ajax({
 			for(var i=2; i<data.length; i++){
 				if(check_indication_num != data[i].indicationNumbers){
 					if(contents != ""){
-						alert($(".performer").height());
 						contents += '</div>';
 						contents += '<div class="textArea">';
 						contents += '<center><textarea class="add_contents" id="add_contents'+(count-1)+'"></textarea>';
@@ -95,18 +94,34 @@ $.ajax({
 			contents += '<center><textarea class="add_contents" id="add_contents'+(count-1)+'"></textarea>';
 			contents += '<input type="button" class="submit" onclick="input_text('+(count-1)+');" value="입력"></input></center>';
 			contents += '</div>';
-			if(data[1].conduct == "orderer"){
-				var complete = '<center><input type="button" id="complete" value="완료" onClick="complete_doc();"></input></center>';
-				$("#complete_document").html(complete);
-				
-				check_requestCount++;
-			}
+			
 			input_form_content += '<center><input type="button" id="submit" value="전송" onClick="send_form();"></input>';
 			input_form_content += '<input type="button" id="cancel" value="취소" onClick="cancels();"></input></center>';
 			
 			$("#indications").html(contents);
 			$("#input_form").html(input_form_content);
-			alert($("#indication1").height());
+			
+			if(data[1].conduct == "orderer"){
+				if(data[1].progressState == 2){
+					var complete = '<center><input type="button" id="complete" value="완료" onClick="complete_doc();"></input></center>';
+					//alert(data[1].progressState);
+					$("#complete_document").html(complete);	
+					
+				}else{
+					jQuery(".textArea").hide();
+				}
+				//alert(data[1].progressState);
+				check_requestCount++;
+			}else{
+				if(data[1].progressState == 2){
+					jQuery(".textArea").hide();
+				}
+			}
+			
+			
+			
+		}else{	//진행사항이 완료일 경우
+			
 		}
 	},
 	
@@ -137,6 +152,8 @@ function complete_doc(){
 		url: 'http://ly.iptime.org/safety_news_0713/php/finishDoc.php',
 		data: {bNo:bNo},
 		success: function (data) {
+			alert("문서가 완료되었습니다.");
+			history.back();
 		},
 
 		error: function (request,status,error) {
@@ -167,6 +184,7 @@ function send_form(){
 		data: formdata,
 		success: function (result) {
 			alert("작업지시가 등록되었습니다.");
+			history.back();
 			//alert(result[0]['conduct']);
 		},
 		error: function (request,status,error) {
