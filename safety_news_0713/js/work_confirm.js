@@ -41,7 +41,7 @@ var check_indication_num = 0; //지시사항 갯수 저장
 var check_requestCount = 0; //마지막 requestCount값 저장
 var discoveredMatter = "";
 var conduct = "";
-var memberId='asdf';
+var memberId='qwer';
 //var bNo='1500910178989';
 $.ajax({
 	type: "GET",
@@ -49,23 +49,23 @@ $.ajax({
 	url: 'http://ly.iptime.org/safety_news_0713/php/getDocInfo.php',
 	data: {bNo:bNo,memberId:memberId},
 	success: function (data) {
-		//alert(data[1].workLocation);
-		$('#subject').html(data[1].workLocation);
+		//제목,글쓴이,문제점 출력
+		$('#subject').html(data[1].workLocation + " " + data[2].discoveredMatters);
 		$('#info').html(data[0].name+"<br>"+data[1].detectedTime);
 		$('#discovered_content').html(data[2].discoveredMatters);
+		
 		discoveredMatter = data[2].discoveredMatters;
 		conduct = data[1].conduct;
 		var contents = "";
 		var count = 1;
 		if(data[1].progressState < 3){	// 진행사항이 완료가 아닌경우
-			//var check_indication_num = 0; //지시사항 갯수 저장
-			//var check_requestCount = 0; //마지막 requestCount값 저장
+			//input form에 사진입력버튼 추가
 			var input_form_content = "";
 			input_form_content +=  '<center><label class="label_form" for="getfile">사진추가 :  </label>';
       		input_form_content +=  '<input type="file"  multiple id="getfile" accept="image/*" name="images"/></input></center>';
 			for(var i=2; i<data.length; i++){
-				if(check_indication_num != data[i].indicationNumbers){
-					if(contents != ""){
+				if(check_indication_num != data[i].indicationNumbers){	//새 지시사항 시 처리
+					if(contents != ""){	//이전 div 닫은후 text 입력 공간 추가
 						contents += '</div>';
 						contents += '<div class="textArea">';
 						contents += '<center><textarea class="add_contents" id="add_contents'+(count-1)+'"></textarea>';
@@ -80,48 +80,62 @@ $.ajax({
 					check_indication_num = data[i].indicationNumbers;
 					count++;
 				}
+				//requestContents 및 수행사항 입력 
 				contents += '<div class="orderer">'+ data[i].requestContents + '</div>';
-				if(data[i].performContents != null){
+				if(data[i].performContents != null){ //없으면 입력안함
 					contents += '<div class="performer">'+ data[i].performContents + '</div>';
 				}
-				if(check_requestCount < data[i].requestCount){
+				if(check_requestCount < data[i].requestCount){ //제일 큰 requestCount 값 저장
 					check_requestCount = data[i].requestCount;
 
 				}
 			}
+			//이전 div 닫은후 text 입력 공간 추가 마지막부분처리
 			contents += '</div>';
 			contents += '<div class="textArea">';
 			contents += '<center><textarea class="add_contents" id="add_contents'+(count-1)+'"></textarea>';
 			contents += '<input type="button" class="submit" onclick="input_text('+(count-1)+');" value="입력"></input></center>';
 			contents += '</div>';
 			
+			//input form 전송 추가버튼
 			input_form_content += '<center><input type="button" id="submit" value="전송" onClick="send_form();"></input>';
 			input_form_content += '<input type="button" id="cancel" value="취소" onClick="cancels();"></input></center>';
 			
+			//출력
 			$("#indications").html(contents);
 			$("#input_form").html(input_form_content);
 			
-			if(data[1].conduct == "orderer"){
+			if(data[1].conduct == "orderer"){	//orderer일때 완료버튼 추가
 				if(data[1].progressState == 2){
 					var complete = '<center><input type="button" id="complete" value="완료" onClick="complete_doc();"></input></center>';
 					//alert(data[1].progressState);
 					$("#complete_document").html(complete);	
 					
-				}else{
+				}else{	//내 차례 아닐 때 text입력버튼 숨김
 					jQuery(".textArea").hide();
 				}
 				//alert(data[1].progressState);
-				check_requestCount++;
+				check_requestCount++;	//orderer일때 마지막에 다음지시사항 입력을 위해 request 1추가
 			}else{
-				if(data[1].progressState == 2){
+				if(data[1].progressState == 2){	//executor일때 승인대기일때 text입력 숨김
 					jQuery(".textArea").hide();
 				}
 			}
 			
-			
-			
 		}else{	//진행사항이 완료일 경우
-			
+			for(var i=2; i<data.length; i++){
+				contents += '<div class="indication" id="indication' + data[i].indicationNumbers + '">';
+				contents += '<div class="subjects">지시사항' + data[i].indicationNumbers + '</div>';
+				
+				contents += '<div class="orderer">'+ data[i].requestContents + '</div>';
+				contents += '<div class="performer">'+ data[i].performContents + '</div>';
+				contents += '</div>';
+			}
+			//출력
+			$("#indications").html(contents);
+			//css 조정
+			$(".orderer").css({'width': 'auto','margin':'10px auto', 'float' : 'none', 'textAlign' : 'center'});
+			$(".performer").css({'width': 'auto', 'margin':'10px auto', 'float' : 'none', 'textAlign' : 'center'});
 		}
 	},
 	
@@ -132,7 +146,7 @@ $.ajax({
 
 
 
-function input_text(n){
+function input_text(n){	//입력버튼 클릭 시
 	if($("#add_contents"+n).val().length > 0){
 		if($("#input_form").css("display")=="none"){
 			jQuery("#input_form").show();
@@ -140,12 +154,12 @@ function input_text(n){
 		var text = $("#add_contents"+n).val();
 		$("#send_msg"+n).val(text);
 	}else{
-		//alert("내용을 입력해 주세요");
-		alert(n);
+		alert("내용을 입력해 주세요");
+		//alert(n);
 	}
 }
 
-function complete_doc(){
+function complete_doc(){	//완료버튼 클릭 시
 	$.ajax({
 		type: "POST",
 		dataType: "json",
@@ -161,7 +175,7 @@ function complete_doc(){
 		}
 	});
 }
-function send_form(){
+function send_form(){	//전송버튼 클릭 시
 	var file = $('#getfile').val();
 	
 	var formdata = new FormData($('#form').val()[0]);
