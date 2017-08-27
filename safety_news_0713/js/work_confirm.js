@@ -37,6 +37,36 @@ else{
 	//alert("잘못된 요청");
 	//history.back();
 }
+
+//이미지 슬라이드 관련 함수
+var slideIndex = 1;
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("img_slide");
+  var dots = document.getElementsByClassName("demo");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length} ;
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" w3-white", " ");
+  }
+  x[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " w3-white";
+}
+//끝
+
+
 var check_indication_num = 0; //지시사항 갯수 저장
 var check_requestCount = 0; //마지막 requestCount값 저장
 var discoveredMatter = "";
@@ -56,8 +86,26 @@ $.ajax({
 		
 		discoveredMatter = data[2].discoveredMatters;
 		conduct = data[1].conduct;
+		//alert(data[1].discoveredPhotoNum);
 		var contents = "";
 		var count = 1;
+		//사진슬라이드 구현
+		var discoveredPhotoName = "Aegis_DM_" + bNo + "_";
+		var discoveredPhotos = "";
+		for(var i=0; i<data[1].discoveredPhotoNum; i++){
+			var discoveredPhotoName = "Aegis_DM_" + bNo + "_" + i + ".jpg";
+			discoveredPhotos += '<img class="img_slide" src="http://ly.iptime.org/photo/'+ discoveredPhotoName +'" style="width:100%">';
+		}
+		discoveredPhotos += '<div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%">';
+		discoveredPhotos += '<div class="w3-left w3-padding-left w3-hover-text-khaki" onclick="plusDivs(-1);">&#10094;</div>';
+    	discoveredPhotos += '<div class="w3-right w3-padding-right w3-hover-text-khaki" onclick="plusDivs(1);">&#10095;</div>';
+		for(var i=0; i<data[1].discoveredPhotoNum; i++){
+			discoveredPhotos += '<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(' +i+ ')"></span>';
+		}
+		discoveredPhotos += '</div>';
+		$("#image").html(discoveredPhotos);
+		showDivs(slideIndex);
+		
 		if(data[1].progressState < 3){	// 진행사항이 완료가 아닌경우
 			//input form에 사진입력버튼 추가
 			var input_form_content = "";

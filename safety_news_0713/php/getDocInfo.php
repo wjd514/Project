@@ -24,13 +24,13 @@ if($row_MemberInfo){
 }
 
 
-$sql_HeaderInfo = 'select * from Works_On WO, Works_List WL where WO.id="' . $memberId . '" and WO.serialNumber="' . $bNo . '" and WO.serialNumber = WL.serialNumber';
+$sql_HeaderInfo = 'select * from Works_On WO, Works_List WL, PhotoInfo PI where WO.id="' . $memberId . '" and WO.serialNumber="' . $bNo . '" and WO.serialNumber = WL.serialNumber and WO.serialNumber = PI.serialNumber';
 $result_HeaderInfo = mysqli_query($db,$sql_HeaderInfo);
 //$row_HeaderInfo = $result_HeaderInfo->fetch_assoc();
 
 while($row_HeaderInfo = mysqli_fetch_array($result_HeaderInfo)){
 //if($row_HeaderInfo){ //왜안되는지 모르겟네 그래서 하나밖에 없지만 while문으로..
-	array_push($result, array('conduct'=>$row_HeaderInfo[2],'workLocation'=>$row_HeaderInfo[3],'detectedTime'=>$row_HeaderInfo[5],'finisedTime'=>$row_HeaderInfo[6],'progressState'=>$row_HeaderInfo[7]));
+	array_push($result, array('conduct'=>$row_HeaderInfo[2],'workLocation'=>$row_HeaderInfo[3],'detectedTime'=>$row_HeaderInfo[5],'finisedTime'=>$row_HeaderInfo[6],'progressState'=>$row_HeaderInfo[7],'discoveredPhotoNum'=>$row_HeaderInfo[10],'performPhotoNum'=>$row_HeaderInfo[11] ));
 }
 
 if($result[1]['progressState'] == 0 && strcmp($result[1]['conduct'],"executor") === 0){

@@ -18,14 +18,14 @@ $currentLimit = ($onePage * $page) - $onePage;
 $sqlLimit = ' limit ' . $currentLimit . ', ' . $onePage;
 
 //쿼리 조건과 쿼리문
-$searchSql = ' where WO.id="' . $memberId . '" and WO.serialNumber=WL.serialNumber and WL.detectedTime >= "' . $searchDate . '" and WL.detectedTime < "' . $searchEndDate . '"';
-$sql = "select * from Works_On WO, Works_List WL" .$searchSql . $sqlLimit;
+$searchSql = ' where WO.id="' . $memberId . '" and WO.serialNumber=WL.serialNumber and PI.serialNumber = WO.serialNumber and WL.detectedTime >= "' . $searchDate . '" and WL.detectedTime < "' . $searchEndDate . '"';
+$sql = "select * from Works_On WO, Works_List WL, PhotoInfo PI" .$searchSql . $sqlLimit;
 $result_Works_On = mysqli_query($db,$sql);
 
 //결과 저장
 $result = array();
 while($row_Works_On = mysqli_fetch_array($result_Works_On)){
-	array_push($result,array('serialNumber'=>$row_Works_On[0], 'id'=>$row_Works_On[1], 'conduct'=>$row_Works_On[2], 'workLocation'=>$row_Works_On[3], 'detectedTime'=>$row_Works_On[5], 'finishedTime'=>$row_Works_On[6], 'progressState'=>$row_Works_On[7], 'newflag'=>$row_Works_On[8]));
+	array_push($result,array('serialNumber'=>$row_Works_On[0], 'id'=>$row_Works_On[1], 'conduct'=>$row_Works_On[2], 'workLocation'=>$row_Works_On[3], 'detectedTime'=>$row_Works_On[5], 'finishedTime'=>$row_Works_On[6], 'progressState'=>$row_Works_On[7], 'newflag'=>$row_Works_On[8], 'photoNum'=>$row_Works_On[11]));
 	//$allPost++;
 }
 

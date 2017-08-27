@@ -191,7 +191,14 @@ $.ajax({
 			for(var i=1; i<data.length; i++){
 				news += '<li class="news"><a href="./work_confirm.html?bno=';
 				news += data[i]['serialNumber'];
-				news +='"><img src="http://ly.iptime.org/photo/Aegis_1483421009387.jpg" class="news_thumimg"></a>';
+				news +='">';
+				if(data[i].photoNum == 0){
+					news += '<img src="http://ly.iptime.org/photo/Aegis_1483421009387.jpg" class="news_thumimg"></a>';	
+				}else{
+					var thumbimg = "Aegis_thum_DM_" + data[i].serialNumber + "_0.jpg";
+					news += '<img src="http://ly.iptime.org/photo/' + thumbimg + '" class="news_thumimg"></a>';				
+				}
+				
 				if(data[i]['progressState'] == 0){
 					news += '<img src="images/red.png" class="indigator">';
 				}else if(data[i]['progressState'] == 3){

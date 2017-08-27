@@ -6,3 +6,5 @@
 6. insertPerform.php => orderer의 재지시, excutor의 수행사항 작성 (Progress 테이블의 키값, 재지시/수행사항 내용)
 7. insertPost.php => 지시사항 글 삽입 (인자값 글 정보)
 8. memberlist.php => 자신 제외 회원 정보 반환 (인자 값 회원ID)
+9. thumnail.php => 썸네일 시키기
+10. thumani2.php => 썸네일 시키기 업그레이드 비율로 썸네일등 옵션추가

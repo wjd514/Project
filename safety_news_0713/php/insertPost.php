@@ -1,5 +1,6 @@
 <?php
 	require_once("../../new_head/safety_news_db_0713.php");
+	require_once("./thumnail.php");
 	header("Content-Type: application/javascript; charset=utf-8");
 	header("Access-Control-Allow-Origin:*");
 	header('Access-Control-Allow-Methods: GET, POST, PUT');
@@ -51,24 +52,25 @@
 		$result_Progress[$key] = mysqli_query($db, $query);
 	}
 	
-	$img_name = "";
+	//$img_name = "";
+	//$img_thum_name = "";
+	$img_num = 0;
 	foreach ($_FILES["images"]["error"] as $key => $error) {
 		
 		if ($error == UPLOAD_ERR_OK) {
 			$tmp_name = $_FILES["images"]["tmp_name"][$key];
 			//$name = $_FILES["images"]["name"][$key];
 			$strTok = explode('.',$_FILES["images"]["name"][$key]);
-			$name = $image_firstName . $image_middleName . $serialNumber . "_" . ($key+1) . "." . $strTok[1];
-			if($key == 0){
-				$img_name = $name;
-			}else{
-				$img_name += "," . $name;
-			}
+			$name = $image_firstName . $image_middleName . $serialNumber . "_" . ($key) . "." . $strTok[1];
+			$thum_name = $image_firstName . "thum_" . $image_middleName . $serialNumber . "_" . ($key) . "." . $strTok[1];
+			$img_num++;
+			
 			$type = $_FILES["images"]["type"][$key];
 			
 			if(strcmp($type,"image/png") == 0 || strcmp($type,"image/jpeg") == 0){
 				move_uploaded_file($tmp_name, "../../photo/$name");
 			}
+			getThumb("../../photo/$name","../../photo/$thum_name",300,300);
 			/*
 			$strTok = explode('.',$name);
 			if(strcmp($strTok[1],"jpg") == 0 || strcmp($strTok[1],"png") == 0 ){
@@ -100,6 +102,17 @@
 			echo "upload error";
 		}
 	}
+	//if($img_num == 0){
+		//$img_name = "no_img";
+		//$img_thum_name = "no_img";
+	//}else{
+		//$img_name = $img_name. "," .$img_num;
+		//$img_thum_name = $img_thum_name. "," .$img_num;
+	//}
+	$data_img = "'" .$serialNumber. "','" .$img_num. "'";
+	$sql_img = "insert into PhotoInfo(`serialNumber`, `discoveredMatterPhotoNum`) values (" .$data_img. ")";
+	$result_img = mysqli_query($db,$sql_img);
+	
 	$result = array();
 	//array_push($result,array('dis'=>$discoveredMatter));
 	array_push($result,array('indications'=>$indications));
